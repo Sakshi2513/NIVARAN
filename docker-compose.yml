@@ -1,0 +1,87 @@
+<<<<<<< HEAD
+version: '3.9'
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - '3000:3000'
+    depends_on:
+      - backend
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:5000
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - '5000:5000'
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/nivaran
+      - NLP_SERVICE_URL=http://nlp-service:8000
+      - FRONTEND_ORIGIN=http://localhost:3000
+    depends_on:
+      - mongo
+      - nlp-service
+
+  nlp-service:
+    build:
+      context: ./nlp-service
+    ports:
+      - '8000:8000'
+
+  mongo:
+    image: mongo:7.0
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - '27017:27017'
+
+volumes:
+  mongo-data:
+    driver: local
+=======
+version: '3.9'
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - '3000:3000'
+    depends_on:
+      - backend
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:5000
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - '5000:5000'
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/nivaran
+      - NLP_SERVICE_URL=http://nlp-service:8000
+      - FRONTEND_ORIGIN=http://localhost:3000
+    depends_on:
+      - mongo
+      - nlp-service
+
+  nlp-service:
+    build:
+      context: ./nlp-service
+    ports:
+      - '8000:8000'
+
+  mongo:
+    image: mongo:7.0
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - '27017:27017'
+
+volumes:
+  mongo-data:
+    driver: local
+>>>>>>> bd452042014574972e94b317ed3411a10209a40f
